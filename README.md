@@ -124,7 +124,7 @@ To facilitate subsequent processing, you need to prepare a FASTA file and a PDB 
 VQLVESGGGLVQPGGSLRLSCAASXXXXXXXYMNWVRQAPGKGLEWVSVVXXXXXTFYTDSVKGRFTISRDNSKNTLYLQMNSLRAEDTAVYYCARXXXXXXXXXXXXXXWGQGTMVTVSS
 >L # Light chain ID
 DIQMTQSPSSLSASVGDRVSITCXXXXXXXXXXXWYQQKPGKAPKLLISXXXXXXXGVPSRFSGSGSGTDFTLTITSLQPEDFATYYCXXXXXXXXXXXFGGGTKVEIK
->A # Antigen ID (must match PDB file)
+>A # Antigen ID (must match PDB file and should be the last sequence listed)
 NLCPFDEVFNATRFASVYAWNRKRISNCVADYSVLYNFAPFFAFKCYGVSPTKLNDLCFTNVYADSFVIRGNEVSQIAPGQTGNIADYNYKLPDDFTGCVIAWNSNKLDSKVGGNYNYRYRLFRKSNLKPFERDISTEIYQAGNKPCNGVAGVNCYFPLQSYGFRPTYGVGHQPYRVVVLSFELLHAPATVCGP
 ```
 * 'X' indicates regions to be designed
@@ -133,7 +133,7 @@ NLCPFDEVFNATRFASVYAWNRKRISNCVADYSVLYNFAPFFAFKCYGVSPTKLNDLCFTNVYADSFVIRGNEVSQIAPG
 ```
 python design.py --fasta examples/fasta.files.native/8iv5_A_B_G.fasta --antigen examples/pdb.files.native/8iv5_A_B_G.pdb --cal_epitope
 
-The antigen parameter specifies the known complex structure, and fasta specifies the known complex sequence. This will return the required epitope format for subsequent steps. You can then copy the epitope information and replace the fasta sequence with your design sequence for antibody design.
+The antigen parameter specifies the known complex structure, and fasta specifies the known complex sequence. This will return the required epitope format for subsequent steps. You can then copy the epitope information and replace the fasta sequence with your design sequence for antibody design. 
 ```
 
 
