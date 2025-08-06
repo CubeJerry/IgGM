@@ -62,12 +62,6 @@ def setup_logger(name=None, color: bool = True, rank=0, abbrev_name=None):
 
 
 def seed_all_rng(seed=None):
-    import os
-    import logging
-    from datetime import datetime
-    import numpy as np
-    import torch
-    import random
 
     slurm_job_id = int(os.environ.get("SLURM_JOB_ID", 0))
     slurm_task_id = int(os.environ.get("SLURM_ARRAY_TASK_ID", 0))
