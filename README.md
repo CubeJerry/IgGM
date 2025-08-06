@@ -1,6 +1,6 @@
 <div align="center">
-Slightly modified IgGM for usage on Milton HPC and compatibility with job submission script.
-
+Slightly modified IgGM for parallel processing on Milton HPC, greatly increasing the number of nanobodies produced.
+   
 # IgGM: A Generative Model for Functional Antibody and Nanobody Design
 
 
