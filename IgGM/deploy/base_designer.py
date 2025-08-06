@@ -21,6 +21,26 @@ class BaseDesigner(BaseModel):
         super().__init__()
         self.prot_struct = ProtStruct()
         self.prot_converter = ProtConverter()
+        
+    def _print_rng_state(self, tag=None):
+        """Print the state of random number generators for debugging reproducibility."""
+        import hashlib
+        import numpy as np
+        import os
+
+        def digest(state):
+            return hashlib.md5(str(state).encode()).hexdigest()[:8]
+
+        py_rng = digest(random.getstate())
+        np_rng = digest(np.random.get_state())
+        torch_seed = torch.initial_seed()
+        env_seed = os.environ.get('PYTHONHASHSEED', 'not set')
+
+        print(f"\n[DEBUG RNG STATE] tag: {tag}", flush=True)
+        print(f"  Python RNG     : {py_rng}", flush=True)
+        print(f"  NumPy RNG      : {np_rng}", flush=True)
+        print(f"  Torch seed     : {torch_seed}", flush=True)
+        print(f"  PYTHONHASHSEED : {env_seed}", flush=True)
 
     def _build_inputs(self, chains):
         """Build an input dict for model inference."""
@@ -98,6 +118,7 @@ class BaseDesigner(BaseModel):
         n_resds = len(inputs[complex_id]['base']['seq'])
         mask_ab = inputs[complex_id]['mask_ab']
         mask_design = inputs[complex_id]['mask_design']
+        self._print_rng_state(tag="init_prot_data")
         # randomly initialize amino-acid sequences
         aa_seqs_init = ''.join(random.choices(RESD_NAMES_1C, k=n_resds))
         aa_seq_ref = inputs[complex_id]['base']['seq']
@@ -136,13 +157,14 @@ class BaseDesigner(BaseModel):
     @classmethod
     def sample_seqs_from_distr(cls, distr):
         """Sample amino-acid sequences from probabilistic distributions."""
-
+        print(f"[DEBUG] Torch seed: {torch.initial_seed()}")
+        
         aa_seqs = []
         ridx_mat = distr.sample()  # N x L
         for idx_smpl in range(ridx_mat.shape[0]):
             aa_seq = ''.join([RESD_NAMES_1C[x] for x in ridx_mat[idx_smpl]])
             aa_seqs.append(aa_seq)
-
+        print(f"[DEBUG] Sampled AA sequences: {aa_seqs}")
         return aa_seqs
 
     @classmethod
