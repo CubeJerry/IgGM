@@ -68,24 +68,29 @@ def seed_all_rng(seed=None):
     Args:
         seed (int): if None, will use a strong random seed.
     """
+    slurm_job_id = int(os.environ.get("SLURM_JOB_ID", 0))
+    slurm_task_id = int(os.environ.get("SLURM_ARRAY_TASK_ID", 0))
+
     if seed is None:
         seed = (os.getpid() +
                 int(datetime.now().strftime('%S%f')) +
-                int.from_bytes(os.urandom(2), 'big')
+                int.from_bytes(os.urandom(2), 'big') +
+                slurm_job_id +
+                slurm_task_id
                 )
         logger = logging.getLogger(__name__)
-        logger.info('Using a generated random seed {}'.format(seed))
+        logger.info(f'Using generated seed: {seed}')
 
     if seed is not None and seed > 0:
         np.random.seed(seed)
-        torch.set_rng_state(torch.manual_seed(seed).get_state())
+        torch.manual_seed(seed)
         random.seed(seed)
         os.environ['PYTHONHASHSEED'] = str(seed)
     else:
-        raise ValueError('Seed ({}) should be a positive integer.'.format(seed))
+        raise ValueError(f'Seed ({seed}) must be a positive integer.')
 
 
-def setup(inference=False, seed=42):
+def setup(inference=False, seed=None):
     if inference:
         torch.set_grad_enabled(False)
 
