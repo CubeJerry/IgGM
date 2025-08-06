@@ -62,12 +62,13 @@ def setup_logger(name=None, color: bool = True, rank=0, abbrev_name=None):
 
 
 def seed_all_rng(seed=None):
-    """
-    Set the random seed for the RNG in torch, numpy and python.
+    import os
+    import logging
+    from datetime import datetime
+    import numpy as np
+    import torch
+    import random
 
-    Args:
-        seed (int): if None, will use a strong random seed.
-    """
     slurm_job_id = int(os.environ.get("SLURM_JOB_ID", 0))
     slurm_task_id = int(os.environ.get("SLURM_ARRAY_TASK_ID", 0))
 
@@ -88,6 +89,18 @@ def seed_all_rng(seed=None):
         os.environ['PYTHONHASHSEED'] = str(seed)
     else:
         raise ValueError(f'Seed ({seed}) must be a positive integer.')
+
+    # Write seed.txt if output dir is specified
+    output_dir = os.environ.get("IGGM_OUTPUT_DIR", None)
+    if output_dir is not None:
+        seed_file = os.path.join(output_dir, "seed.txt")
+        if not os.path.exists(seed_file):
+            try:
+                with open(seed_file, 'w') as f:
+                    f.write(str(seed) + '\n')
+                logger.info(f"Seed saved to {seed_file}")
+            except Exception as e:
+                logger.warning(f"Failed to write seed.txt: {e}")
 
 
 def setup(inference=False, seed=None):
