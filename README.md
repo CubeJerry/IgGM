@@ -63,6 +63,7 @@ For business partnership opportunities, please contact leslielwang@tencent.com.
 git clone https://github.com/TencentAI4S/IgGM.git
 cd IgGM
 ```
+(This is for the original repo)
 
 2. Prepare the environment
 
