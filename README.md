@@ -1,4 +1,5 @@
 <div align="center">
+Slightly modified IgGM for usage on Milton HPC and compatibility with job submission script.
 
 # IgGM: A Generative Model for Functional Antibody and Nanobody Design
 
