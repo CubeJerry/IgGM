@@ -1,5 +1,5 @@
 <div align="center">
-Slightly modified IgGM for parallel processing on Milton HPC, greatly increasing the number of nanobodies produced.
+Slightly modified IgGM for parallel processing on Milton HPC, greatly increasing the number of nanobodies produced. Complements nanobody pipeline repo.
    
 # IgGM: A Generative Model for Functional Antibody and Nanobody Design
 
