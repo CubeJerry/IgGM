@@ -134,8 +134,20 @@ def predict(args):
 
     chunk_size = args.chunk_size
     print(f"#inference samples: {len(batches)}")
+    
+    generated_pdbs = []
     for task in tqdm.tqdm(batches):
         designer.infer_pdb(task["chains"], filename=task["output"], chunk_size=chunk_size, relax=args.relax)
+        # Collect paths
+        if os.path.isfile(task["output"]):
+            generated_pdbs.append(task["output"])
+
+    # Write manifest file with generated pdb paths
+    manifest_path = os.path.join(args.output, "relaxpdbs.txt")
+    with open(manifest_path, "w") as f:
+        for pdb in generated_pdbs:
+            f.write(pdb + "\n")
+    print(f"Manifest of generated PDBs written to {manifest_path}")
 
 
 def main():
