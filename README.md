@@ -1,5 +1,5 @@
 <div align="center">
-Slightly modified IgGM to allow for parallel processing in the WEHI nanobody pipeline.
+Slightly modified IgGM to allow for parallel processing in the Tham Lab nanobody pipeline.
    
 # IgGM: A Generative Model for Functional Antibody and Nanobody Design
 
