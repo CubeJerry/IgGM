@@ -1,6 +1,6 @@
 <div align="center">
 
-# IgGM: A Generative Model for Functional Antibody and Nanobody Design
+# A Generative Foundation Model for Antibody Design
 
 [![Homepage](http://img.shields.io/badge/Homepage-IgGM-ff88dd.svg)](https://iggm.rubo.wang)
 [![Journal Paper](http://img.shields.io/badge/Journal_paper-biorxiv-FFA876.svg)](https://www.biorxiv.org/content/10.1101/2025.09.12.675771)
