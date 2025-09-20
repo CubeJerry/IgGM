@@ -77,7 +77,7 @@ You can use a fasta file as the sequence input and a pdb file as the antigen inp
 * **A Colab version of IgGM maintained by Luis can be found at [Colab-IgGM](https://github.com/Lefrunila/Colab-IgGM), thanks to Luis for his contributions!**
 
 * **Optional:**
-  * For all commands, you can use PyRosetta to relax the output by adding `--relax` or `-r`.
+  * For all commands, you can use PyRosetta to relax the output by adding `--relax` or `-r`. This option will also add side-chain atoms.
   * For all commands, you can specify the maximum truncation length for the antigen to 384 to avoid memory issues by adding `--max_antigen_size 384` or `-mas 384`.
 
 For subsequent processing, you need to prepare a fasta file and a pdb file. Your fasta file should have the following structure, which you can refer to in the `examples` folder.

@@ -80,7 +80,7 @@ pip install https://graylab.jhu.edu/download/PyRosetta4/archive/release/PyRosett
 * **一个由Luis维护的Colab版本的IgGM可以在[Colab-IgGM](https://github.com/Lefrunila/Colab-IgGM)找到，感谢Luis的贡献！**
 
 * **可选：**
-  * 所有命令您可以使用Pyrosetta通过添加"--relax"或"-r" 来relax输出。
+  * 所有命令您可以使用Pyrosetta通过添加"--relax"或"-r" 来relax输出。执行这个命令同时会添加侧链原子。
   * 所有命令您可以通过添加"--max_antigen_size 384"或''-mas 384''来指定抗原的最大截断长度为384，以避免内存避免内存。
 
 为了方便后续处理，你需要准备一个fasta文件和一个pdb文件，你的fasta文件应该具有以下的结构，具体可以参考examples文件夹。
