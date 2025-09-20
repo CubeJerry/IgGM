@@ -227,14 +227,31 @@ class BaseDesigner(BaseModel):
         for chn_id in ligand_id.split(":"):
             prot_data_chain = OrderedDict()
             aa_seq = inputs[chn_id]['base']['seq']
-            if 'X' in aa_seq:  # for sequence recovery
-                aa_seq = outputs['seq'][start:start + len(aa_seq)]
-                pred_info += f'REMARK 250 Predicted Sequence for chain {chn_id}: {aa_seq}\n'
-            prot_data[chn_id] = {
-                    'seq': aa_seq,
-                    'cord': outputs['cord'][start:start + len(aa_seq)],
-                    'cmsk': outputs['cmsk'][start:start + len(aa_seq)],
+            aa_seq = outputs['seq'][start:start + len(aa_seq)]
+            pred_info += f'REMARK 250 Predicted Sequence for chain {chn_id}: {aa_seq}\n'
+            prot_data_chain[chn_id] = {
+                'seq': aa_seq,
+                'cord': outputs['cord'][start:start + len(aa_seq)],
+                'cmsk': outputs['cmsk'][start:start + len(aa_seq)],
+            }
+            if relax:
+                chain_save_path = f'{tmp_path}/{chn_id}.pdb'
+                chain_add_path = f'{tmp_path}/{chn_id}_add.pdb'
+                PdbParser.save_multimer(prot_data_chain, chain_save_path, pred_info=pred_info)
+                pdb_fixer.add_atoms_api(chain_save_path, chain_add_path)
+                chn_id_data = PdbParser.load(chain_add_path, aa_seq=aa_seq)
+                prot_data[chn_id] = {
+                    'seq': chn_id_data[0],
+                    'cord': chn_id_data[1],
+                    'cmsk': chn_id_data[2],
                 }
+            else:
+                prot_data[chn_id] = {
+                        'seq': aa_seq,
+                        'cord': outputs['cord'][start:start + len(aa_seq)],
+                        'cmsk': outputs['cmsk'][start:start + len(aa_seq)],
+                    }
+            start += len(aa_seq)
 
         for chn_id in receptor_id.split(":"):
             aa_seq = inputs[chn_id]['base']['seq']
