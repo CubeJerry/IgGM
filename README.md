@@ -57,7 +57,7 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 If you need to use relax for the output, please install the following version of PyRosetta:
 
 ```shell
-pip install https://graylab.jhu.edu/download/PyRosetta4/archive/release/PyRosetta4.Debug.python310.linux.wheel/pyrosetta-2024.39+release.59628fb-cp310-cp310-linux_x86_64.whl
+pip install https://west.rosettacommons.org/pyrosetta/release/release/PyRosetta4.Release.python310.ubuntu.wheel/pyrosetta-2025.37+release.df75a9c48e-cp310-cp310-linux_x86_64.whl
 ```
 
 3. Download the model (Optional, pretrained weights will be downloaded automatically when the code is run)
