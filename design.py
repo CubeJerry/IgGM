@@ -74,7 +74,7 @@ def parse_args():
     parser.add_argument(
         '--max_antigen_size', '-mas',
         type=int,
-        default=2000,
+        default=4000,
         help='max size of antigen chain, default is 2000',
     )
     parser.add_argument(
@@ -191,18 +191,20 @@ def predict(args):
     temperature = args.temperature
     print(f"#inference samples: {len(batches)}")
 
-    # for multiple runs
-    import time
-    import random
-    random.seed(time.time())
-    random.shuffle(batches)
+    generated_pdbs = []
 
     for task in tqdm.tqdm(batches):
         if os.path.exists(task["output"]):
             print(f'{task["output"]} exists or has been executed by other process')
             continue
         designer.infer_pdb(task["chains"], filename=task["output"], chunk_size=chunk_size, relax=args.relax,  temperature=temperature, task=args.run_task)
-
+        if os.path.isfile(task["output"]):
+            generated_pdbs.append(task["output"])
+    
+    manifest_path = os.path.join(args.output, "relaxpdbs.txt")
+    with open(manifest_path, "w") as f:
+        for pdb in generated_pdbs:
+            f.write(pdb + "\n")
 
 def main():
     args = parse_args()
