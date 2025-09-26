@@ -1,5 +1,6 @@
 <div align="center">
 
+Slightly modified for the Tham Lab.
 # A Generative Foundation Model for Antibody Design
 
 [![Homepage](http://img.shields.io/badge/Homepage-IgGM-ff88dd.svg)](https://iggm.rubo.wang)
