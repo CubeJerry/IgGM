@@ -85,7 +85,7 @@ def seed_all_rng(seed=None):
         raise ValueError('Seed ({}) should be a positive integer.'.format(seed))
 
 
-def setup(inference=False, seed=42):
+def setup(inference=False, seed=None):
     if inference:
         torch.set_grad_enabled(False)
 
