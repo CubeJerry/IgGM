@@ -39,7 +39,7 @@ def get_asym_ids(aa_seqs):
     return asym_ids
 
 
-def calc_ppi_sites(prot_data, chn_ids, dist_thres=7.5):
+def calc_ppi_sites(prot_data, chn_ids, dist_thres=10):
     """Calculate PPI sites"""
 
     assert len(chn_ids) == 2
